@@ -1,0 +1,2 @@
+# SnowCraft
+SnowCraft - Minecraft Plugin
