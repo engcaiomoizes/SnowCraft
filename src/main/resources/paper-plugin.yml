@@ -1,0 +1,4 @@
+name: SnowCraft
+version: '1.0-SNAPSHOT'
+main: br.com.caiomoizes.snowCraft.SnowCraft
+api-version: '1.21'
