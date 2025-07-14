@@ -2,3 +2,14 @@ name: SnowCraft
 version: '1.0-SNAPSHOT'
 main: br.com.caiomoizes.snowCraft.SnowCraft
 api-version: '1.21'
+commands:
+  register:
+    aliases: [register,registrar]
+    usage: /<command> <senha> <confirmaSenha>
+    description: Registrar sua conta
+    permission: register.use
+  login:
+    aliases: [login,logar]
+    usage: /<command> <senha>
+    description: Logar na sua conta
+    permission: login.use

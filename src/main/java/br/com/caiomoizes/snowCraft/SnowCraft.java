@@ -19,6 +19,7 @@ public final class SnowCraft extends JavaPlugin {
     private static SnowCraft instance;
 
     private CustomConfig users;
+    private CustomConfig tablist;
 
     public static SnowCraft getInstance() {
         return instance;
@@ -32,6 +33,10 @@ public final class SnowCraft extends JavaPlugin {
         return this.users;
     }
 
+    public CustomConfig getTablist() {
+        return this.tablist;
+    }
+
     @Override
     public void onEnable() {
         setInstance(this);
@@ -39,11 +44,17 @@ public final class SnowCraft extends JavaPlugin {
         Bukkit.getServer().getConsoleSender().sendMessage(Component.text("[SnowCraft] Ativado!", NamedTextColor.GREEN));
 
         PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(new Events(), this);
+        pm.registerEvents(new Events(this), this);
 
         this.users = new CustomConfig("users.yml");
         this.users.get().options().copyDefaults(true);
         this.users.save();
+
+        saveResource("tablist.yml", false);
+
+        this.tablist = new CustomConfig("tablist.yml");
+        //this.tablist.get().options().copyDefaults(true);
+        //this.tablist.save();
 
         runnable();
     }
@@ -57,7 +68,7 @@ public final class SnowCraft extends JavaPlugin {
         (new BukkitRunnable() {
             int count = 0;
 
-            World world = SnowCraft.this.getServer().getWorld("New World");
+            World world = SnowCraft.this.getServer().getWorld("world");
 
             List<Entity> entList;
 
