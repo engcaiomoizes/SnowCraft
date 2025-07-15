@@ -13,3 +13,13 @@ commands:
     usage: /<command> <senha>
     description: Logar na sua conta
     permission: login.use
+  saldo:
+    aliases: [saldo,bal]
+    usage: /<command>
+    description: Exibir saldo da conta
+    permission: saldo.use
+  pay:
+    aliases: [pay,pagar]
+    usage: /<command> <jogador> <valor>
+    description: Transferir para um jogador
+    permission: pay.use

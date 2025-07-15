@@ -63,6 +63,10 @@ public class Events implements Listener {
                     p.kick(Component.text("Você demorou muito para logar!", NamedTextColor.RED));
             }
         }).runTaskLater(snowcraft, 2400L);
+
+        // Caso o jogador não tiver saldo registrado, lhe é creditado um valor inicial de 200
+        if (!snowcraft.getEconomyManager().exists(p))
+            snowcraft.getEconomyManager().setBalance(p, 200);
     }
 
     @EventHandler
