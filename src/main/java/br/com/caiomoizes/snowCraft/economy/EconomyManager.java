@@ -12,8 +12,11 @@ public class EconomyManager {
     private final HashMap<UUID, Double> cache = new HashMap<>();
     private final CustomConfig config;
 
-    public EconomyManager(CustomConfig config) {
+    private final double saldoInicial;
+
+    public EconomyManager(CustomConfig config, double saldoInicial) {
         this.config = config;
+        this.saldoInicial = saldoInicial;
         loadAll();
     }
 
@@ -49,6 +52,11 @@ public class EconomyManager {
 
     public boolean exists(Player p) {
         return cache.containsKey(p.getUniqueId());
+    }
+
+    public void creditInitialValue(Player p) {
+        if (!exists(p))
+            setBalance(p, saldoInicial);
     }
 
     public void saveAll() {

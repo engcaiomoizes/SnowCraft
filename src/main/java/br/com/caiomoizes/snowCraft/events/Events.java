@@ -64,14 +64,14 @@ public class Events implements Listener {
             }
         }).runTaskLater(snowcraft, 2400L);
 
-        // Caso o jogador não tiver saldo registrado, lhe é creditado um valor inicial de 200
-        if (!snowcraft.getEconomyManager().exists(p))
-            snowcraft.getEconomyManager().setBalance(p, 200);
+        // Caso o jogador não tiver saldo registrado, lhe é creditado um valor inicial
+        snowcraft.getEconomyManager().creditInitialValue(p);
     }
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent e) {
         Player p = e.getPlayer();
+        LoginAPI.deslogar(p);
         e.quitMessage(Component.text(p.getName() + " saiu!", NamedTextColor.RED));
     }
 

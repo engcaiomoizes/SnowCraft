@@ -14,6 +14,11 @@ public class Register implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
         if (commandSender instanceof Player p) {
+            if (!p.hasPermission("register.use")) {
+                p.sendMessage(Component.text("Você não tem permissão para usar este comando.", NamedTextColor.RED));
+                return true;
+            }
+
             if (strings.length == 0) return false;
 
             if (!LoginAPI.estaRegistrado(p)) {
