@@ -3,6 +3,7 @@ package br.com.caiomoizes.snowCraft;
 import br.com.caiomoizes.snowCraft.commands.*;
 import br.com.caiomoizes.snowCraft.economy.EconomyManager;
 import br.com.caiomoizes.snowCraft.events.Events;
+import br.com.caiomoizes.snowCraft.factions.FactionsManager;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -30,8 +31,10 @@ public final class SnowCraft extends JavaPlugin {
     private CustomConfig users;
     private CustomConfig tablist;
     private CustomConfig economy;
+    private CustomConfig factions;
 
     private EconomyManager economyManager;
+    private FactionsManager factionsManager;
 
     public static SnowCraft getInstance() {
         return instance;
@@ -49,10 +52,20 @@ public final class SnowCraft extends JavaPlugin {
         return this.tablist;
     }
 
-    public CustomConfig getEconomy() { return this.economy; }
+    public CustomConfig getEconomy() {
+        return this.economy;
+    }
+
+    public CustomConfig getFactions() {
+        return this.factions;
+    }
 
     public EconomyManager getEconomyManager() {
         return this.economyManager;
+    }
+
+    public FactionsManager getFactionsManager() {
+        return this.factionsManager;
     }
 
     @Override
@@ -68,6 +81,9 @@ public final class SnowCraft extends JavaPlugin {
 
         this.economy = new CustomConfig("economy.yml");
         this.economyManager = new EconomyManager(economy, saldoInicial);
+
+        this.factions = new CustomConfig("factions.yml");
+        this.factionsManager = new FactionsManager();
 
         // Comandos com CommandExecutor
         registerCommand(
