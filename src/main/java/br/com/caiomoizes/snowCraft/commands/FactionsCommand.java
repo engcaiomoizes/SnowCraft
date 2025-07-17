@@ -35,12 +35,7 @@ public class FactionsCommand implements CommandExecutor {
                 );
                 break;
             case "create":
-                if (args.length < 2)
-                    p.sendMessage(Component.text("Informe o nome da faction.", NamedTextColor.GOLD, TextDecoration.BOLD));
-                else {
-                    String name = args[1];
-                    //
-                }
+                CreateCommand(p, args);
                 break;
             case "delete":
                 if (factions.isOwner(p)) {
@@ -104,5 +99,14 @@ public class FactionsCommand implements CommandExecutor {
         }
 
         return true;
+    }
+
+    public void CreateCommand(Player p, String[] args) {
+        if (args.length < 2)
+            p.sendMessage(Component.text("Informe o nome da faction.", NamedTextColor.GOLD, TextDecoration.BOLD));
+        else {
+            String name = args[1];
+            //
+        }
     }
 }
