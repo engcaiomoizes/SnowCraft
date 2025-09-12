@@ -1,0 +1,7 @@
+tablist:
+  header:
+    - "&6&lBem-Vindo ao SnowCraft!"
+    - "&9Bem-Vindo, &3&l%player%"
+    - "&4Desenvolvido por &2&lcukamonga"
+  footer:
+    - "&7Players online: &7&l%online%"
