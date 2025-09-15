@@ -285,6 +285,24 @@ public class Events implements Listener {
                     p.playerListName(display.getDisplayName(p));
                 }
                 break;
+            case "snowcraft:faction/accept":
+                String invitedFaction = factions.getFactionByInvited(p);
+                factions.join(p);
+                p.sendMessage(
+                        Component.text("Bem-vindo a ", NamedTextColor.WHITE, TextDecoration.BOLD)
+                                .append(Component.text(invitedFaction, NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD))
+                                .append(Component.text("! É muito bom ter você aqui.", NamedTextColor.WHITE, TextDecoration.BOLD))
+                );
+                break;
+            case "snowcraft:faction/decline":
+                String declinedFaction = factions.getFactionByInvited(p);
+                factions.decline(declinedFaction, p);
+                p.sendMessage(
+                        Component.text("Você recusou o convite para entrar em ", NamedTextColor.WHITE, TextDecoration.BOLD)
+                                .append(Component.text(declinedFaction, NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD))
+                                .append(Component.text(".", NamedTextColor.WHITE, TextDecoration.BOLD))
+                );
+                break;
             default:
                 break;
         }

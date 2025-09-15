@@ -224,6 +224,29 @@ public class FactionsCommand implements CommandExecutor {
                                         Component.text(target.getName(), NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD)
                                                 .append(Component.text(" foi convidado! Aguardando resposta...", NamedTextColor.WHITE, TextDecoration.BOLD))
                                 );
+
+                                Dialog dialog = Dialog.create(builder -> builder.empty()
+                                        .base(DialogBase.builder(Component.text("Convite"))
+                                                .body(List.of(
+                                                        DialogBody.plainMessage(
+                                                                Component.text(p.getName(), NamedTextColor.DARK_AQUA, TextDecoration.BOLD)
+                                                                        .append(Component.text(" te convidou para ", NamedTextColor.WHITE, TextDecoration.BOLD))
+                                                                        .append(Component.text(faction, NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD))
+                                                                        .append(Component.text(".", NamedTextColor.GOLD, TextDecoration.BOLD))
+                                                        )
+                                                ))
+                                                .build()
+                                        )
+                                        .type(DialogType.confirmation(
+                                                ActionButton.builder(Component.text("Aceitar"))
+                                                        .action(DialogAction.customClick(Key.key("snowcraft:faction/accept"), null))
+                                                        .build(),
+                                                ActionButton.builder(Component.text("Recusar"))
+                                                        .action(DialogAction.customClick(Key.key("snowcraft:faction/decline"), null))
+                                                        .build()
+                                        ))
+                                );
+                                target.showDialog(dialog);
                             }
                         } else {
                             p.sendMessage(Component.text("Este jogador não existe ou está offline.", NamedTextColor.RED));

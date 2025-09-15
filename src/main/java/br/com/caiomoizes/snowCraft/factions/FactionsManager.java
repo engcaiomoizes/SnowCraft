@@ -1,6 +1,9 @@
 package br.com.caiomoizes.snowCraft.factions;
 
 import br.com.caiomoizes.snowCraft.CustomConfig;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -67,6 +70,42 @@ public class FactionsManager {
         invitedPlayers.put(target.getName(), name);
     }
 
+    public boolean isInvited(Player p) {
+        return invitedPlayers.containsKey(p.getName());
+    }
+
+    public String getFactionByInvited(Player p) {
+        return invitedPlayers.get(p.getName());
+    }
+
+    public void join(Player p) {
+        if (isInvited(p)) {
+            String faction = getFactionByInvited(p);
+
+            List<String> members = config.get().getConfigurationSection("factions").getConfigurationSection(faction).getStringList("members");
+            members.add(p.getName());
+            config.get().getConfigurationSection("factions").getConfigurationSection(faction).set("members", members);
+
+            config.get().getConfigurationSection("players").set(p.getName(), faction);
+
+            invitedPlayers.remove(p.getName());
+
+            save();
+        }
+    }
+
+    public void decline(String faction, Player p) {
+        String owner = getOwner(faction);
+        Player own = Bukkit.getPlayer(owner);
+        if (own != null && own.isOnline())
+            p.sendMessage(
+                    Component.text(p.getName(), NamedTextColor.DARK_AQUA, TextDecoration.BOLD)
+                            .append(Component.text(" recusou seu convite.", NamedTextColor.WHITE, TextDecoration.BOLD))
+            );
+
+        invitedPlayers.remove(p.getName());
+    }
+
     public void leave(Player p, String faction) {
         List<String> members = config.get().getConfigurationSection("factions").getConfigurationSection(faction).getStringList("members");
         members.remove(p.getName());
@@ -117,6 +156,7 @@ public class FactionsManager {
     }
 
     public boolean isInFaction(Player p, String faction) {
+        if (config.get().getConfigurationSection("players").getString(p.getName()) == null) return false;
         return config.get().getConfigurationSection("players").getString(p.getName()).equals(faction);
     }
 
